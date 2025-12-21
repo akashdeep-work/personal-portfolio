@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --color-background: 224 71% 4%;
+  --color-foreground: 210 40% 98%;
+  --color-muted: 215 20% 65%;
+  --color-accent: 263 83% 68%;
+  --color-border: 215 15% 20%;
+  --color-card: 228 9% 10%;
+  --color-card-foreground: 210 40% 98%;
+}
+
+:root.light {
+  color-scheme: light;
+  --color-background: 210 40% 98%;
+  --color-foreground: 224 71% 4%;
+  --color-muted: 215 16% 47%;
+  --color-accent: 263 83% 56%;
+  --color-border: 215 27% 84%;
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 224 71% 4%;
+}
+
+* {
+  @apply antialiased;
+}
+
+body {
+  @apply relative min-h-screen bg-background font-sans text-foreground;
+  background-color: hsl(var(--color-background));
+  background-image: radial-gradient(circle at 12% 18%, rgba(94, 92, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 82% 8%, rgba(56, 189, 248, 0.12), transparent 28%),
+    radial-gradient(circle at 24% 78%, rgba(16, 185, 129, 0.1), transparent 28%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 120px 120px, 120px 120px;
+  background-position: center;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+a {
+  @apply transition-colors;
+}
+
+section {
+  scroll-margin-top: 96px;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, hsl(var(--color-foreground)) 18%, transparent);
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0.55;
+  line-height: 0.9;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
