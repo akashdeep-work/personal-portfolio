@@ -7,7 +7,7 @@ export const hero: HeroContent = {
   summary:
     'Versatile ML Engineer and Full-Stack Developer delivering scalable backends, AI systems, and polished web/mobile experiences from concept to launch.',
   photo: {
-    src: '/karan-profile.jpeg',
+    src: '/akash.jpeg',
     alt: 'Portrait of Akashdeep in a blazer and glasses',
   },
   ctas: [
