@@ -11,7 +11,8 @@ export const useTheme = () => {
       return 'dark'
     }
 
-    return (localStorage.getItem(STORAGE_KEY) as ThemeMode | null) ?? 'dark'
+    // return (localStorage.getItem(STORAGE_KEY) as ThemeMode | null) ?? 'dark'
+    return 'dark'
   })
 
   useEffect(() => {
@@ -29,7 +30,8 @@ export const useTheme = () => {
     localStorage.setItem(STORAGE_KEY, theme)
   }, [theme])
 
-  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  // const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+  const toggleTheme = () => setTheme('dark')
 
   return { theme, toggleTheme }
 }

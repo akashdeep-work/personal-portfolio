@@ -1,20 +1,20 @@
-import { Github, Linkedin, Mail, Moon, Sun, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Mail, Sparkles } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { site } from '../../data/site'
 import { socials } from '../../data/socials'
 import { useScrollSpy } from '../../hooks/useScrollSpy'
-import { useTheme } from '../../hooks/useTheme'
+// import { useTheme } from '../../hooks/useTheme'
 import { cn } from '../../utils/cn'
 import { Container } from './Container'
-import { Button } from '../ui/Button'
+// import { Button } from '../ui/Button'
 import { fadeInUp } from '../../theme/motion'
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const ids = useMemo(() => site.nav.map((item) => item.id), [])
   const activeId = useScrollSpy(ids)
-  const { theme, toggleTheme } = useTheme()
+  // const { theme, toggleTheme } = useTheme()
 
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80/90 backdrop-blur">
@@ -65,7 +65,7 @@ export const Navbar = () => {
               </a>
             ))}
           </div>
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             aria-label="Toggle theme"
@@ -73,7 +73,7 @@ export const Navbar = () => {
             className="rounded-full border border-border/70 bg-card/50"
           >
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </Button>
+          </Button> */}
           <button
             className={cn(
               'relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl border border-border/80 bg-card/70 text-foreground shadow-md transition hover:border-accent/60 md:hidden',
