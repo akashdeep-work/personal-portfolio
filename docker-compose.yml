@@ -4,4 +4,4 @@ services:
     container_name: karansharma-portfolio
     restart: always
     ports:
-      - "127.0.0.1:5173:80"
+      - "127.0.0.1:5174:80"
