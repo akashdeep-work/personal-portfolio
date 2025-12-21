@@ -37,4 +37,18 @@ export const projects: Project[] = [
     image: '/focusly.png',
     alt: 'Focus Better. Work Smarter. Achieve More.',
   },
+  {
+    title: 'ProductFielder',
+    description: 'ProductFielder is an AI-powered web application designed to help e-commerce sellers, brands, and digital entrepreneurs create high-quality product listings in seconds. Built with React.js on the frontend and a Python + PyTorch AI backend, ProductFielder transforms minimal product input into complete, optimized product data ready for online marketplaces. The platform eliminates repetitive manual work and ensures consistency, accuracy, and SEO-optimized content for every product.',
+    tech: ['ReactJS', 'MongoDB', 'Python', 'Pytorch', 'AI', 'Machine Learning'],
+    image: '/productfielder.png',
+    alt: 'AI-Powered Product Listing Generator for E-commerce',
+  },
+  {
+    title: 'InsightTrendr',
+    description: 'InsightTrendr is an AI-driven web application that helps businesses, marketers, and analysts identify, analyze, and predict market trends using machine learning. Built with React.js and powered by a Python + PyTorch backend, InsightTrendr transforms large volumes of data into actionable insights.',
+    tech: ['ReactJS', 'Python', 'Pytorch', 'MongoDB', 'FastAPI'],
+    image: '/insight.png',
+    alt: 'AI-Powered Market Trend Analysis & Forecasting Platform',
+  },
 ]
