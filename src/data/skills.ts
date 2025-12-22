@@ -7,7 +7,7 @@ export const skills: SkillGroup[] = [
   },
   {
     category: 'Backend & APIs',
-    items: ['Python', 'FastAPI', 'Django', 'Node.js', 'Express.js', 'NestJS', 'REST', 'GraphQL'],
+    items: ['Python', 'FastAPI', 'Django', 'Node.js', 'Express.js', 'NestJS', 'REST', 'GraphQL', 'MySQL', 'SQLLite', 'MongoDB'],
   },
   {
     category: 'Machine Learning & AI',
