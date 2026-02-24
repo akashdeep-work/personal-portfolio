@@ -8,7 +8,7 @@ export const ExperienceSection = ({ items }: ExperienceSectionProps) => {
   return (
     <section className="block">
       <h2>
-        <span>6+ YEARS OF</span>
+        <span>4+ YEARS OF</span>
         <span className="muted">EXPERIENCE</span>
       </h2>
       {items.map((item) => (

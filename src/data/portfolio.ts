@@ -44,7 +44,7 @@ export const portfolioData = {
     name: 'Akashdeep',
     title: 'Full-Stack Engineer',
     image:
-      '/karan-profile.jpeg',
+      '/akash.jpeg',
     bio: 'Seeking challenging Backend Developer or Full-Stack Developer roles to build scalable, secure, and high-performance applications that positively impact business growth and operational efficiency.',
     contacts: [
       { label: 'Phone', value: '+91-7888929889', href: 'tel:+917888929889' },

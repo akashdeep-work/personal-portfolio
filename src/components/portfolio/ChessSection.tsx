@@ -423,7 +423,7 @@ export const ChessSection = () => {
     return getLegalMovesForPiece(board, selected).map((move) => `${move.to.row}-${move.to.col}`)
   }, [board, selected, isAiThinking])
 
-  const registerMove = (move: Move, actor: 'You' | 'Karan AI') => {
+  const registerMove = (move: Move, actor: 'You' | 'Akash AI') => {
     const captureTag = move.captured ? ` x ${move.captured.toUpperCase()}` : ''
     const label = `${actor}: ${move.piece.toUpperCase()} ${toNotation(move.from)} → ${toNotation(move.to)}${captureTag}`
     setMoveLog((history) => [...history, label])
@@ -433,12 +433,12 @@ export const ChessSection = () => {
     const nextMoves = getAllLegalMoves(nextBoard, humanTurn)
     if (nextMoves.length === 0) {
       const checked = isKingInCheck(nextBoard, humanTurn)
-      setStatus(checked ? (humanTurn ? 'Checkmate: Karan AI wins.' : 'Checkmate: You win!') : 'Stalemate.')
+      setStatus(checked ? (humanTurn ? 'Checkmate: Akash AI wins.' : 'Checkmate: You win!') : 'Stalemate.')
       return true
     }
 
     if (isKingInCheck(nextBoard, humanTurn)) {
-      setStatus(humanTurn ? 'Your king is in check.' : 'Karan AI king is in check.')
+      setStatus(humanTurn ? 'Your king is in check.' : 'Akash AI king is in check.')
     }
 
     return false
@@ -447,7 +447,7 @@ export const ChessSection = () => {
   const triggerAiMove = async (nextBoard: Piece[][]) => {
     const token = gameTokenRef.current
     setIsAiThinking(true)
-    setStatus('Karan AI is thinking with Stockfish...')
+    setStatus('Akash AI is thinking with Stockfish...')
 
     const fen = boardToFen(nextBoard, 'b')
     const bestMoveUci = await getBestMoveFromStockfish(fen)
@@ -459,11 +459,11 @@ export const ChessSection = () => {
     if (!aiMove) {
       setIsAiThinking(false)
       const aiHasMoves = getAllLegalMoves(nextBoard, false).length > 0
-      setStatus(aiHasMoves ? 'Karan AI could not find a legal move.' : 'Game over: You win!')
+      setStatus(aiHasMoves ? 'Akash AI could not find a legal move.' : 'Game over: You win!')
       return
     }
 
-    setStatus('Karan AI is moving...')
+    setStatus('Akash AI is moving...')
     await sleep(AI_MOVE_DELAY_MS)
 
     if (token !== gameTokenRef.current) return
@@ -471,7 +471,7 @@ export const ChessSection = () => {
     const aiBoard = applyMove(nextBoard, aiMove)
     setBoard(aiBoard)
     setRecentMove({ from: aiMove.from, to: aiMove.to })
-    registerMove(aiMove, 'Karan AI')
+    registerMove(aiMove, 'Akash AI')
     setIsAiThinking(false)
 
     if (!checkEnd(aiBoard, true)) {
@@ -541,7 +541,7 @@ export const ChessSection = () => {
       <h2>
         CHESS <span className="muted">ARENA</span>
       </h2>
-      <p>Play as White against Karan AI (Black powered by Stockfish). Illegal moves are blocked for both sides and every legal move is tracked below.</p>
+      <p>Play as White against Akash AI (Black powered by Stockfish). Illegal moves are blocked for both sides and every legal move is tracked below.</p>
 
       <div className="chess-shell">
         <div className="chess-board" role="grid" aria-label="Chess board">
