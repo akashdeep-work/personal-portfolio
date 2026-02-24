@@ -1,6 +1,14 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { flushSync } from 'react-dom'
 import { apiEndpoints } from '../services/api/endpoints'
-import type { ChatMessage, UploadedFile } from '../types/rag'
+import type {
+  ChatMessage,
+  ChatSession,
+  Message,
+  StreamMessageEvent,
+  UploadedFile,
+  UploadResponse,
+} from '../types/rag'
 
 type PrevChat = {
   id: string
@@ -10,7 +18,6 @@ type PrevChat = {
 }
 
 interface AppContextState {
-  token: string | null
   files: UploadedFile[]
   chats: PrevChat[]
   messages: ChatMessage[]
@@ -21,8 +28,6 @@ interface AppContextState {
   loadingMessages: boolean
   uploadingFile: boolean
   sending: boolean
-  loadingGuest: boolean
-
   loadFiles: () => Promise<void>
   loadChats: () => Promise<void>
   selectFile: (fileId: string | null) => void
@@ -30,11 +35,9 @@ interface AppContextState {
   uploadFile: (file: File) => Promise<void>
   sendMessage: (text: string) => Promise<void>
   resetConversation: () => void
-  getGuestUserAccess: () => Promise<void>
 }
 
 const initialState: AppContextState = {
-  token: null,
   files: [],
   chats: [],
   messages: [],
@@ -45,8 +48,6 @@ const initialState: AppContextState = {
   loadingMessages: false,
   uploadingFile: false,
   sending: false,
-  loadingGuest: false,
-
   loadFiles: async () => {},
   loadChats: async () => {},
   selectFile: () => {},
@@ -54,56 +55,48 @@ const initialState: AppContextState = {
   uploadFile: async () => {},
   sendMessage: async () => {},
   resetConversation: () => {},
-  getGuestUserAccess: async () => {},
 }
+
+const mapSessionToPrevChat = (session: ChatSession): PrevChat => ({
+  id: String(session.id),
+  title: session.title,
+  updatedAt: session.created_at,
+})
+
+const mapApiMessageToUiMessage = (message: Message): ChatMessage => ({
+  id: String(message.id),
+  role: message.role === 'assistant' ? 'assistant' : 'user',
+  text: message.content,
+  timestamp: message.timestamp,
+})
+
+const buildOptimisticUserMessage = (text: string): ChatMessage => ({
+  id: crypto.randomUUID(),
+  role: 'user',
+  text,
+  timestamp: new Date().toISOString(),
+})
 
 export const AppContext = createContext<AppContextState>(initialState)
 
-export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null)
+export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [files, setFiles] = useState<UploadedFile[]>([])
   const [chats, setChats] = useState<PrevChat[]>([])
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [selectedFileId, setSelectedFileId] = useState<string | null>(null)
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
-
   const [loadingFiles, setLoadingFiles] = useState(false)
-  const [loadingGuest, setLoadingGuest] = useState(false)
   const [loadingChats, setLoadingChats] = useState(false)
   const [loadingMessages, setLoadingMessages] = useState(false)
   const [uploadingFile, setUploadingFile] = useState(false)
   const [sending, setSending] = useState(false)
 
-  const getGuestUserAccess = useCallback(async () => {
-    if (typeof window === 'undefined') return
-
-    const existing = localStorage.getItem('token')
-    if (existing && existing.trim().length > 0) {
-      setToken(existing)
-      return
-    }
-
-    setLoadingGuest(true)
-    try {
-      const result = await apiEndpoints.getGuestAccess()
-      if (result?.access_token) {
-        localStorage.setItem('token', result.access_token)
-        setToken(result.access_token)
-      }
-    } catch (error) {
-      console.error('guest login error', error)
-    } finally {
-      setLoadingGuest(false)
-    }
-  }, [])
-
   const loadFiles = useCallback(async () => {
     setLoadingFiles(true)
     try {
       const result = await apiEndpoints.getFiles()
-      setFiles(result ?? [])
-    } catch (error) {
-      console.error('loadFiles error', error)
+      setFiles((result ?? []).map((file) => ({ ...file, id: String(file.id) })))
+    } catch {
       setFiles([])
     } finally {
       setLoadingFiles(false)
@@ -114,15 +107,8 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setLoadingChats(true)
     try {
       const result = await apiEndpoints.getChats()
-      const mappedChats: PrevChat[] =
-        result?.map((session) => ({
-          id: session.id.toString(),
-          title: session.title,
-          updatedAt: session.updatedAt,
-        })) ?? []
-      setChats(mappedChats)
-    } catch (error) {
-      console.error('loadChats error', error)
+      setChats(result?.map(mapSessionToPrevChat) ?? [])
+    } catch {
       setChats([])
     } finally {
       setLoadingChats(false)
@@ -133,25 +119,15 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setLoadingMessages(true)
     try {
       const result = await apiEndpoints.getChatMessages(chatId)
-      const mappedMessages: ChatMessage[] =
-        result?.map((message) => ({
-          id: message.id,
-          role: message.role === 'assistant' ? 'assistant' : 'user',
-          text: message.content,
-          timestamp: message.timestamp,
-        })) ?? []
-      setMessages(mappedMessages)
-    } catch (error) {
-      console.error('loadChatMessages error', error)
+      setMessages(result?.map(mapApiMessageToUiMessage) ?? [])
+    } catch {
       setMessages([])
     } finally {
       setLoadingMessages(false)
     }
   }, [])
 
-  const selectFile = useCallback((fileId: string | null) => {
-    setSelectedFileId(fileId)
-  }, [])
+  const selectFile = useCallback((fileId: string | null) => setSelectedFileId(fileId), [])
 
   const selectChat = useCallback(
     async (chatId: string | null) => {
@@ -165,19 +141,23 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     [loadChatMessages],
   )
 
+  const prependUploadedFile = (uploaded: UploadResponse, file: File) => {
+    const nextFile: UploadedFile = {
+      id: uploaded.file_id,
+      filename: file.name,
+      upload_date: new Date().toISOString(),
+    }
+    setFiles((prev) => [nextFile, ...prev])
+    setSelectedFileId(uploaded.file_id)
+  }
+
   const uploadFile = useCallback(async (file: File) => {
     setUploadingFile(true)
     try {
       const formData = new FormData()
       formData.append('file', file)
-
       const uploaded = await apiEndpoints.uploadFile(formData)
-      if (uploaded) {
-        setFiles((prev: UploadedFile[]) => [{id:uploaded.id, filename:file.name} as UploadedFile, ...prev])
-        setSelectedFileId(uploaded.id)
-      }
-    } catch (error) {
-      console.error('uploadFile error', error)
+      prependUploadedFile(uploaded, file)
     } finally {
       setUploadingFile(false)
     }
@@ -188,87 +168,92 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setSelectedChatId(null)
   }, [])
 
-  const sendMessage = useCallback(
+  const ensureChatSession = useCallback(
     async (text: string) => {
-      let chatId: string | null = null
-      if (!selectedChatId) {
-        try {
-          const response = await apiEndpoints.startSession(text)
-          chatId = response.id?.toString() ?? null
-          if (chatId) {
-            setChats((prev: PrevChat[]) => [{ id: chatId, title: response.title } as PrevChat, ...prev])
-            setSelectedChatId(chatId)
-          }
-        } catch (error) {
-          console.error('sendMessage error', error)
-        }
-      } else {
-        chatId = selectedChatId
-      }
-
-      if (!text.trim()) return
-
-      setSending(true)
-
-      const userMessage: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'user',
-        text,
-        timestamp: new Date().toISOString(),
-      }
-      setMessages((prev: ChatMessage[]) => [...prev, userMessage])
-
-      try {
-        if (!chatId) {
-          throw new Error('Chat session not initialized')
-        }
-
-        const response = await apiEndpoints.sendMessage(chatId, text)
-
-        const assistantMessage: ChatMessage = {
-          id: crypto.randomUUID(),
-          role: 'assistant',
-          text: response.content ?? 'No response',
-          timestamp: response.timestamp ?? new Date().toISOString(),
-        }
-
-        setMessages((prev: ChatMessage[]) => [...prev, assistantMessage])
-      } catch (error) {
-        console.error('sendMessage error', error)
-        setMessages((prev: ChatMessage[]) => [
-          ...prev,
-          {
-            id: crypto.randomUUID(),
-            role: 'assistant',
-            text: 'There was an error contacting the server.',
-            timestamp: new Date().toISOString(),
-          },
-        ])
-      } finally {
-        setSending(false)
-      }
+      if (selectedChatId) return selectedChatId
+      const session = await apiEndpoints.startSession(text)
+      const nextChatId = String(session.id)
+      setChats((prev) => [mapSessionToPrevChat(session), ...prev])
+      setSelectedChatId(nextChatId)
+      return nextChatId
     },
     [selectedChatId],
   )
 
-  useEffect(() => {
-    void (async () => {
-      await getGuestUserAccess()
-      await Promise.all([loadFiles(), loadChats()])
-    })()
-  }, [getGuestUserAccess, loadFiles, loadChats])
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const normalizedText = text.trim()
+      if (!normalizedText) return
+
+      const assistantPlaceholderId = crypto.randomUUID()
+      let persistedAssistantMessageId: string | null = null
+      const isStreamingAssistantMessage = (messageId: string) =>
+        messageId === assistantPlaceholderId || messageId === persistedAssistantMessageId
+
+      setSending(true)
+      setMessages((prev) => [
+        ...prev,
+        buildOptimisticUserMessage(normalizedText),
+        { id: assistantPlaceholderId, role: 'assistant', text: '', timestamp: new Date().toISOString() },
+      ])
+
+      try {
+        const chatId = await ensureChatSession(normalizedText)
+        await apiEndpoints.sendMessageStream(chatId, normalizedText, (event: StreamMessageEvent) => {
+          if ('token' in event) {
+            flushSync(() => {
+              setMessages((prev) =>
+                prev.map((message) =>
+                  isStreamingAssistantMessage(message.id)
+                    ? { ...message, text: `${message.text}${event.token}` }
+                    : message,
+                ),
+              )
+            })
+            return
+          }
+
+          if (event.status === 'pending') {
+            const persistedId = String(event.assistant_message_id)
+            persistedAssistantMessageId = persistedId
+            setMessages((prev) =>
+              prev.map((message) =>
+                isStreamingAssistantMessage(message.id) ? { ...message, id: persistedId } : message,
+              ),
+            )
+          }
+
+          if (event.status === 'failed') {
+            setMessages((prev) =>
+              prev.map((message) =>
+                isStreamingAssistantMessage(message.id)
+                  ? { ...message, id: String(event.assistant_message_id), text: message.text || 'Failed response.' }
+                  : message,
+              ),
+            )
+          }
+        })
+      } catch {
+        setMessages((prev) =>
+          prev.map((message) =>
+            isStreamingAssistantMessage(message.id)
+              ? { ...message, text: 'There was an error contacting the server.' }
+              : message,
+          ),
+        )
+      } finally {
+        setSending(false)
+      }
+    },
+    [ensureChatSession],
+  )
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    const existing = localStorage.getItem('token')
-    if (existing && existing !== token) {
-      setToken(existing)
-    }
-  }, [token])
+    void Promise.all([loadFiles(), loadChats()])
+  }, [loadFiles, loadChats])
 
   const providerValue = useMemo(
     () => ({
-      token,
       files,
       chats,
       messages,
@@ -279,8 +264,6 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       loadingMessages,
       uploadingFile,
       sending,
-      loadingGuest,
-
       loadFiles,
       loadChats,
       selectFile,
@@ -288,10 +271,8 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       uploadFile,
       sendMessage,
       resetConversation,
-      getGuestUserAccess,
     }),
     [
-      token,
       files,
       chats,
       messages,
@@ -302,7 +283,6 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       loadingMessages,
       uploadingFile,
       sending,
-      loadingGuest,
       loadFiles,
       loadChats,
       selectFile,
@@ -310,7 +290,6 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       uploadFile,
       sendMessage,
       resetConversation,
-      getGuestUserAccess,
     ],
   )
 

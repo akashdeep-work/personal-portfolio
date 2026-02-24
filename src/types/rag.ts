@@ -1,24 +1,47 @@
-export type GuestUser = {
-  access_token: string
-}
-
 export type UploadedFile = {
-  id: string
+  id: number | string
   filename: string
   upload_date?: string
 }
 
+export type UploadResponse = {
+  file_id: string
+  path: string
+  indexed: boolean
+}
+
+export type MessageStatus = 'pending' | 'completed' | 'failed'
+
 export type Message = {
-  id: string
+  id: number | string
   role: 'assistant' | 'user'
   content: string
+  status?: MessageStatus
   timestamp?: string
 }
 
 export type ChatSession = {
-  id: string | number
+  id: number | string
   title: string
-  updatedAt?: string
+  session_id?: string
+  created_at?: string
+}
+
+export type ChatResponse = {
+  assistant_message_id: number
+  role: 'assistant'
+  status: MessageStatus
+  content: string
+}
+
+export type StreamMessageEvent =
+  | { assistant_message_id: number; status: 'pending' | 'completed' | 'failed' }
+  | { token: string }
+
+export type HealthResponse = {
+  status: 'ok' | string
+  indexed_files: number
+  index_size: number
 }
 
 export type ChatMessage = {
