@@ -23,6 +23,7 @@ export const ProjectsSection = ({ projects, onSelectProject }: ProjectsSectionPr
           <div>
             <h3>{project.title}</h3>
             <p>{project.subtitle}</p>
+            <p>{project.overview}</p>
           </div>
           <span className="arrow">↗</span>
         </button>

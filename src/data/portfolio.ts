@@ -76,36 +76,53 @@ export const portfolioData = {
       { text: 'AWS, AZURE, DOCKER, KUBERNETES, RAG SYSTEMS', tone: 'lime' },
     ] as Feature[],
   },
-  projects: [
+projects: [
     {
       title: 'RAG AI Assistant',
       subtitle: 'Cosmic Owl | Production AI System',
       image:
-        'https://framerusercontent.com/images/4mYEXU91rLBNKIW9k6hZh16l7Q.jpeg?width=2400&height=1800',
+        '/rag.png',
       overview:
-        'Architected and deployed a production-ready RAG system using LLMs and vector databases to automate document summarization and reduce manual review effort.',
+        'Engineered the core retrieval backend for a production-ready Retrieval-Augmented Generation (RAG) system. Built a highly efficient vector database pipeline from scratch using FAISS for semantic search. Implemented advanced reranking algorithms to optimize context retrieval, drastically minimizing LLM hallucinations and ensuring highly accurate, grounded document summarization.',
       stack: ['Python', 'FAISS', 'RAG', 'LLM', 'FastAPI'],
       link: '/rag-assistant',
     },
     {
-      title: 'Product Listing Tool',
-      subtitle: 'Cosmic Owl | AI Hybrid Production Tool',
+      title: 'Product Fielder',
+      subtitle: 'AI-Powered Product Listing generator for Sellers',
       image:
-        'https://framerusercontent.com/images/5Ra4AFZmEJOkMGLAEjkRXt2oqF4.png?width=2400&height=1800',
+        '/productfielder.png',
       overview:
-        'Built an end-to-end computer vision pipeline using PyTorch and FastAPI that converts product images into structured listing data and reduced manual data entry by 35%.',
-      stack: ['PyTorch', 'FastAPI', 'Computer Vision', 'Automation'],
-      link: 'http://www.linkedin.com/in/akashdeep73',
+        'Developed an intelligent product listing generator that leverages AI to automatically create optimized, high-converting product titles, descriptions, bullet points, and SEO keywords for e-commerce sellers.',
+      stack: ['Python', 'ReactJS', 'FastAPI', 'API Optimization', 'LLM'],
     },
     {
-      title: 'Seatherny',
-      subtitle: 'Napworks | Bird Classification Platform',
+      title: 'Video Streaming Architecture',
+      subtitle: 'Cosmic Owl | Full-Stack Platform',
       image:
-        'https://framerusercontent.com/images/GyxvLZ0U5MeFKnTaiObmffY.png?width=2400&height=1800',
+        '/videostream.png',
       overview:
-        'Developed an Android and Python tool for image-based bird classification using TensorFlow, integrated with a scalable cloud-hosted backend.',
-      stack: ['Python', 'TensorFlow', 'Android', 'Cloud Backend'],
-      link: 'http://www.linkedin.com/in/akashdeep73',
+        'Developed scalable, full-stack streaming solutions focused on advanced video compression and efficient delivery protocols. Successfully maintained high-quality playback on the client side while significantly reducing backend CDN costs and data payloads.',
+      stack: ['NodeJS', 'ReactJS', 'Streaming', 'API Optimization'],
+    },
+    {
+      title: 'Memory Cherish',
+      subtitle: 'AI-Powered Image Restoration App',
+      image:
+        '/MemoryCharrish.png',
+      overview:
+        'Built a full-stack, AI-powered image enhancement application utilizing React for an intuitive frontend and Python for the backend engine. The platform successfully restores, colorizes, and repairs old, faded, and scratched black-and-white photos.',
+      stack: ['ReactJS', 'Python', 'AI Models', 'Image Processing'],
+    },
+     
+    {
+      title: 'Hapiverse',
+      subtitle: 'AI-powered social networking application',
+      image:
+        '/hapiverse.png',
+      overview:
+        'Developed Hapiverse, an AI-powered social networking application designed for businesses and individuals to connect through an intelligent match algorithm and personalized recommendation system. The platform enhances professional networking by delivering meaningful, interest-based connections and business opportunities.',
+      stack: ['ReactJS', 'Python', 'Nodejs', 'IOS', 'Android', 'AI Models'],
     },
   ] as Project[],
   experience: [

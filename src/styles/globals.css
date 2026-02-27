@@ -723,10 +723,16 @@ h2 span {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: #1a1716;
   padding: 50px 18px;
+  overflow-y: scroll;
+  max-height: 95vh;
+}
+
+.spacer{
+  padding: 7%;
 }
 
 .project-modal-close {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 10px;
   width: 34px;
@@ -741,7 +747,7 @@ h2 span {
 .project-modal-image {
   width: 100%;
   border-radius: 12px;
-  height: 240px;
+  /* height: 240px; */
   object-fit: cover;
 }
 

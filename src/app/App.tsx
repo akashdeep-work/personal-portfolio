@@ -70,9 +70,13 @@ const App = () => {
           features={hero.features}
           ragUrl="/rag-assistant"
         />
+        <div className='spacer' />
         <ProjectsSection projects={projects} onSelectProject={setActiveProject} />
+        <div className='spacer' />
         <ExperienceSection items={experience} />
+        <div className='spacer' />
         <ToolsSection items={tools} />
+        <div className='spacer' />
         <ContactSection headingMain={contact.headingMain} headingMuted={contact.headingMuted} subtitle={contact.subtitle} details={contact.details} />
       </>
     )

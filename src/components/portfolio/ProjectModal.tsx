@@ -23,9 +23,9 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             <span key={item}>{item}</span>
           ))}
         </div>
-        <a className="project-modal-link" href={project.link} target="_blank" rel="noreferrer">
+        {project.link && <a className="project-modal-link" href={project.link} target="_blank" rel="noreferrer">
           Open project ↗
-        </a>
+        </a>}
       </article>
     </div>
   )
