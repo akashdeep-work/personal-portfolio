@@ -34,7 +34,7 @@ export const ContactSection = ({
         ))}
       </div>
 
-      <form className="contact-form" onSubmit={(event) => event.preventDefault()}>
+      {/* <form className="contact-form" onSubmit={(event) => event.preventDefault()}>
         <label>
           <span>Name</span>
           <input type="text" placeholder="Your Name" />
@@ -66,7 +66,7 @@ export const ContactSection = ({
         <button type="submit" className="contact-submit contact-full">
           Submit
         </button>
-      </form>
+      </form> */}
     </section>
   )
 }
