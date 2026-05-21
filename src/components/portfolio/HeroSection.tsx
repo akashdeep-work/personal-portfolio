@@ -15,7 +15,7 @@ export const HeroSection = ({
   description,
   stats,
   features,
-  ragUrl,
+  // ragUrl,
 }: HeroSectionProps) => {
   return (
     <section className="hero">
