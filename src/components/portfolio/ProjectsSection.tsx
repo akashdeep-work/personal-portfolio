@@ -7,7 +7,7 @@ type ProjectsSectionProps = {
 
 export const ProjectsSection = ({ projects, onSelectProject }: ProjectsSectionProps) => {
   return (
-    <section className="block">
+    <section className="block" id='projects'>
       <h2>
         <span>RECENT</span>
         <span className="muted">PROJECTS</span>

@@ -1,12 +1,13 @@
 import App from './App'
-import { RagWorkspace } from '../components/rag/RagWorkspace'
+// import { RagWorkspace } from '../components/rag/RagWorkspace'
 
 const isRagShowcase =
   typeof window !== 'undefined' && window.location.pathname.includes('rag-assistant')
 
 const AppRoot = () => {
   if (isRagShowcase) {
-    return <RagWorkspace />
+    // return <RagWorkspace />
+    return <div/>
   }
 
   return <App />

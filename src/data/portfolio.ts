@@ -65,9 +65,9 @@ export const portfolioData = {
     titleMain: 'FULL-STACK',
     titleMuted: 'ENGINEER',
     description:
-      '4+ years building cloud-native backend and full-stack systems with NodeJS, ReactJS, Python, FastAPI, ExpressJS, and AI-enabled automation workflows.',
+      '5 years building cloud-native backend and full-stack systems with NodeJS, ReactJS, Python, FastAPI, ExpressJS, and AI-enabled automation workflows.',
     stats: [
-      { value: '4+', label: 'YEARS OF EXPERIENCE' },
+      { value: '5', label: 'YEARS OF EXPERIENCE' },
       { value: '35%', label: 'WORKFLOW EFFICIENCY GAIN' },
       { value: '99%', label: 'PRODUCTION UPTIME' },
     ] as Stat[],
@@ -84,8 +84,8 @@ projects: [
         '/rag.png',
       overview:
         'Engineered the core retrieval backend for a production-ready Retrieval-Augmented Generation (RAG) system. Built a highly efficient vector database pipeline from scratch using FAISS for semantic search. Implemented advanced reranking algorithms to optimize context retrieval, drastically minimizing LLM hallucinations and ensuring highly accurate, grounded document summarization.',
-      stack: ['Python', 'FAISS', 'RAG', 'LLM', 'FastAPI'],
-      link: '/rag-assistant',
+      stack: ['Python', 'FAISS', 'RAG', 'LLM', 'FastAPI', 'LangGraph'],
+      // link: '/rag-assistant',
     },
     {
       title: 'Product Fielder',

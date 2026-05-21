@@ -32,7 +32,7 @@ export const HeroSection = ({
           </article>
         ))}
       </div>
-      <div className="hero-quick-actions">
+      {/* <div className="hero-quick-actions">
         <a
           href={ragUrl}
           className="hero-action-btn rag"
@@ -47,7 +47,7 @@ export const HeroSection = ({
       </div>
       <div className="hero-action-helper" aria-hidden="true">
         <small><strong>AI:</strong> Document Q&amp;A with RAG pipeline</small>
-      </div>
+      </div> */}
       <div className="feature-grid">
         {features.map((feature) => (
           <article key={feature.text} className={`feature ${feature.tone}`}>

@@ -86,7 +86,7 @@ const App = () => {
     <>
       <div className="page">
         <TopNav items={navItems} activePath={activePath} onNavigate={navigate} />
-        <aside className="sidebar">
+        {activePath == "/" && <aside className="sidebar">
           <ProfileCard
             name={profile.name}
             image={profile.image}
@@ -94,7 +94,7 @@ const App = () => {
             title={profile.title}
             contacts={profile.contacts}
           />
-        </aside>
+        </aside>}
 
         <main className="content">{pageContent}</main>
       </div>
