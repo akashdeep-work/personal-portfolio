@@ -1,206 +1,225 @@
-import type { NavItem } from '../components/portfolio/TopNav'
-import type { ProfileContact } from '../components/portfolio/ProfileCard'
+import type { PortfolioData } from '../types'
 
-export type Stat = {
-  value: string
-  label: string
-}
-
-export type Feature = {
-  text: string
-  tone: 'orange' | 'lime'
-}
-
-export type Project = {
-  title: string
-  subtitle: string
-  image: string
-  overview: string
-  stack: string[]
-  link: string
-}
-
-export type ExperienceItem = {
-  name: string
-  details: string
-  date: string
-}
-
-export type ToolItem = {
-  name: string
-  description: string
-  icon: string
-}
-
-export const portfolioData = {
-  navItems: [
-    { label: 'Home', path: '/' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Experience', path: '/experience' },
-    { label: 'Tools', path: '/tools' },
-    { label: 'Contact', path: '/contact' },
-  ] as NavItem[],
+/**
+ * ────────────────────────────────────────────────────────────────
+ *  SITE CONTENT — the only file you should need to edit
+ * ────────────────────────────────────────────────────────────────
+ *  Every string rendered on the site lives here. Components read
+ *  from this object and contain no hardcoded copy. To update your
+ *  name, roles, projects, or testimonials, edit this file only —
+ *  no component changes required.
+ * ────────────────────────────────────────────────────────────────
+ */
+export const portfolio: PortfolioData = {
   profile: {
     name: 'Akashdeep',
-    title: 'Full-Stack Engineer',
-    image:
-      '/akash.jpeg',
-    bio: 'Seeking challenging Backend Developer or Full-Stack Developer roles to build scalable, secure, and high-performance applications that positively impact business growth and operational efficiency.',
-    contacts: [
-      { label: 'Phone', value: '+91-7888929889', href: 'tel:+917888929889' },
-      {
-        label: 'Email',
-        value: 'akashdeep.work73@gmail.com',
-        href: 'mailto:akashdeep.work73@gmail.com',
-      },
-      {
-        label: 'LinkedIn',
-        value: 'akashdeep73',
-        href: 'http://www.linkedin.com/in/akashdeep73',
-      },
-      { label: 'Location', value: 'Remote / Chandigarh' },
-    ] as ProfileContact[],
+    title: 'Full-Stack Engineer — AI & LLM Systems',
+    tagline: 'I build production-grade AI systems and full-stack products — not prototypes.',
+    location: 'India',
+    remoteNote: 'Open to remote and Chandigarh-based work',
+    email: 'akashdeep.work73@gmail.com',
+    phone: '+91-7888929889',
+    resumeUrl: '/resume.pdf', // replace with a real hosted resume file
+    socials: [
+      { label: 'LinkedIn', href: 'https://linkedin.com/in/akashdeep73', handle: '@akashdeep73' },
+      { label: 'Github', href: 'https://github.com/akashdeep-work', handle: 'akashdeep-work' },
+      { label: 'Email', href: 'mailto:akashdeep.work73@gmail.com', handle: 'akashdeep.work73@gmail.com' },
+      { label: 'Phone', href: 'tel:+917888929889', handle: '+91 78889 29889' },
+    ],
   },
-  hero: {
-    titleMain: 'FULL-STACK',
-    titleMuted: 'ENGINEER',
-    description:
-      '5 years building cloud-native backend and full-stack systems with NodeJS, ReactJS, Python, FastAPI, ExpressJS, and AI-enabled automation workflows.',
-    stats: [
-      { value: '5', label: 'YEARS OF EXPERIENCE' },
-      { value: '35%', label: 'WORKFLOW EFFICIENCY GAIN' },
-      { value: '99%', label: 'PRODUCTION UPTIME' },
-    ] as Stat[],
-    features: [
-      { text: 'NODEJS, REACTJS, PYTHON, FASTAPI, EXPRESSJS', tone: 'orange' },
-      { text: 'AWS, AZURE, DOCKER, KUBERNETES, RAG SYSTEMS', tone: 'lime' },
-    ] as Feature[],
+
+  about: {
+    heading: 'About',
+    paragraphs: [
+      'I\u2019m a full-stack engineer with 5 years building backend systems and product interfaces that stay reliable after the demo ends. Most of my recent work sits at the intersection of applied AI and traditional engineering: retrieval-augmented generation, computer vision pipelines, and the unglamorous infrastructure that keeps them running at 99% uptime.',
+      'I care about the parts of AI engineering that don\u2019t show up in a pitch deck \u2014 latency budgets, vector index tuning, graceful fallbacks when a model call fails, and API contracts that don\u2019t break downstream teams. I\u2019ve led small teams, mentored junior engineers, and sat directly with clients to turn ambiguous requirements into shipped features.',
+      'Outside of client work, I spend time going deeper on LangChain/LangGraph orchestration patterns and evaluating open-weight LLMs like Qwen for cost-sensitive production use cases.',
+    ],
+    highlights: [
+      { label: 'Experience', value: '5 years' },
+      { label: 'Focus', value: 'AI/LLM systems, full-stack' },
+      { label: 'Based in', value: 'Punjab, India' },
+      { label: 'Available for', value: 'Freelance & consulting' },
+    ],
   },
-projects: [
+
+  skills: [
     {
-      title: 'RAG AI Assistant',
-      subtitle: 'Cosmic Owl | Production AI System',
-      image:
-        '/rag.png',
-      overview:
-        'Engineered the core retrieval backend for a production-ready Retrieval-Augmented Generation (RAG) system. Built a highly efficient vector database pipeline from scratch using FAISS for semantic search. Implemented advanced reranking algorithms to optimize context retrieval, drastically minimizing LLM hallucinations and ensuring highly accurate, grounded document summarization.',
-      stack: ['Python', 'FAISS', 'RAG', 'LLM', 'FastAPI', 'LangGraph'],
-      // link: '/rag-assistant',
+      category: 'Languages',
+      items: ['TypeScript', 'JavaScript', 'Python', 'SQL'],
     },
     {
-      title: 'Product Fielder',
-      subtitle: 'AI-Powered Product Listing generator for Sellers',
-      image:
-        '/productfielder.png',
-      overview:
-        'Developed an intelligent product listing generator that leverages AI to automatically create optimized, high-converting product titles, descriptions, bullet points, and SEO keywords for e-commerce sellers.',
-      stack: ['Python', 'ReactJS', 'FastAPI', 'API Optimization', 'LLM'],
+      category: 'Frontend',
+      items: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
     },
     {
-      title: 'Video Streaming Architecture',
-      subtitle: 'Cosmic Owl | Full-Stack Platform',
-      image:
-        '/videostream.png',
-      overview:
-        'Developed scalable, full-stack streaming solutions focused on advanced video compression and efficient delivery protocols. Successfully maintained high-quality playback on the client side while significantly reducing backend CDN costs and data payloads.',
-      stack: ['NodeJS', 'ReactJS', 'Streaming', 'API Optimization'],
+      category: 'Backend',
+      items: ['Node.js', 'Express', 'FastAPI', 'GraphQL', 'REST', 'Microservices'],
     },
     {
-      title: 'Memory Cherish',
-      subtitle: 'AI-Powered Image Restoration App',
-      image:
-        '/MemoryCharrish.png',
-      overview:
-        'Built a full-stack, AI-powered image enhancement application utilizing React for an intuitive frontend and Python for the backend engine. The platform successfully restores, colorizes, and repairs old, faded, and scratched black-and-white photos.',
-      stack: ['ReactJS', 'Python', 'AI Models', 'Image Processing'],
+      category: 'Cloud & DevOps',
+      items: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB', 'Redis'],
     },
-     
     {
-      title: 'Hapiverse',
-      subtitle: 'AI-powered social networking application',
-      image:
-        '/hapiverse.png',
-      overview:
-        'Developed Hapiverse, an AI-powered social networking application designed for businesses and individuals to connect through an intelligent match algorithm and personalized recommendation system. The platform enhances professional networking by delivering meaningful, interest-based connections and business opportunities.',
-      stack: ['ReactJS', 'Python', 'Nodejs', 'IOS', 'Android', 'AI Models'],
+      category: 'AI / ML',
+      items: ['LangChain', 'LangGraph', 'RAG Systems', 'PyTorch', 'Vector Databases', 'TensorFlow'],
     },
-  ] as Project[],
+  ],
+
   experience: [
     {
-      name: 'Cosmic Owl Pvt Ltd, Bangalore | Full Stack Developer',
-      details:
-        'Developed AI hybrid production tooling and a RAG AI assistant, automated product specification generation, improved API response times by ~35%, and maintained 99% uptime with CI/CD best practices.',
-      date: 'Aug 2024 – Present',
+      id: 'cosmic-owl',
+      company: 'Cosmic Owl Pvt Ltd',
+      role: 'Full Stack Developer',
+      location: 'Bangalore',
+      start: 'Aug 2024',
+      end: 'Mar 2026',
+      achievements: [
+        'Built an AI Hybrid Production Tool and a RAG AI Assistant on Qwen2.5 with a vector database backend, sustaining 99% uptime in production.',
+        'Cut API response times by roughly 35% through query and caching optimizations across core services.',
+        'Automated product spec generation, reducing manual effort on that workflow by 30\u201335%.',
+      ],
     },
     {
-      name: 'Napworks Pvt. Ltd., Mohali | Software Engineer',
-      details:
-        'Optimized legacy systems to reduce latency, built productivity tooling for Android applications, and partnered with R&D and security teams to improve reliability and vulnerability mitigation.',
-      date: 'Jul 2023 – Jul 2024',
+      id: 'napworks',
+      company: 'Napworks Pvt. Ltd.',
+      role: 'Software Engineer',
+      location: 'Mohali',
+      start: 'Jul 2023',
+      end: 'Jul 2024',
+      achievements: [
+        'Built Seatherny, an Android avian species identification app using TensorFlow for on-device inference, deployed on GCP.',
+        'Maintained 99% uptime while optimizing and extending a legacy production system.',
+      ],
     },
     {
-      name: 'Techbit Solutions Pvt. Ltd., Chandigarh | Software Engineer',
-      details:
-        'Engineered full-stack and backend features, led a team of 3 engineers, managed integrations and critical analytics/billing modules, and improved API response times by ~35%.',
-      date: 'Sep 2021 – Dec 2022',
+      id: 'techbit',
+      company: 'Techbit Solutions Pvt. Ltd.',
+      role: 'Software Engineer',
+      location: 'Chandigarh',
+      start: 'Sep 2021',
+      end: 'Dec 2022',
+      achievements: [
+        'Led a team of 3 engineers on client-facing feature delivery.',
+        'Reduced API response times by approximately 35% through backend optimization work.',
+        'Owned client relationship management and mentored junior engineers on the team.',
+      ],
     },
     {
-      name: 'Bhanguz, Chandigarh | Software Engineer',
-      details:
-        'Developed React and Node.js/Python features, improved performance and user experience, and streamlined deployments through process optimization.',
-      date: 'Feb 2021 – Jul 2021',
+      id: 'bhanguz',
+      company: 'Bhanguz',
+      role: 'Software Engineer',
+      location: 'Chandigarh',
+      start: 'Feb 2021',
+      end: 'Jul 2021',
+      achievements: [
+        'Shipped full-stack features end-to-end using React on the frontend and Node.js/Python on the backend.',
+      ],
     },
-  ] as ExperienceItem[],
-  tools: [
+  ],
+
+  projects: [
     {
-      name: 'NodeJS',
-      description: 'Backend API',
-      icon: 'https://cdn.simpleicons.org/nodedotjs/3C873A',
-    },
-    {
-      name: 'ReactJS',
-      description: 'Frontend UI',
-      icon: 'https://cdn.simpleicons.org/react/61DAFB',
-    },
-    {
-      name: 'Python',
-      description: 'AI and ML',
-      icon: 'https://cdn.simpleicons.org/python/3776AB',
-    },
-    {
-      name: 'SQL/NoSQL',
-      description: 'Data Layer',
-      icon: 'https://cdn.simpleicons.org/databricks/4479A1',
+      id: 'rag-assistant',
+      name: 'RAG AI Assistant',
+      featured: true,
+      problem:
+        'Support and product teams were losing hours manually searching scattered internal docs to answer routine product questions.',
+      solution:
+        'Designed and built a retrieval-augmented generation assistant on Qwen2.5, backed by a vector database for semantic search over internal documentation, with caching and fallback handling for model latency spikes.',
+      tech: ['Qwen2.5', 'LangChain', 'Vector DB', 'FastAPI', 'Redis'],
+      outcome: '~35% faster response times with 99% uptime in production.',
     },
     {
-      name: 'AWS/Azure',
-      description: 'Cloud DevOps',
-      icon: 'https://cdn.simpleicons.org/ebox/FF9900',
+      id: 'product-listing-cv',
+      name: 'Product Listing Tool (Computer Vision)',
+      featured: true,
+      problem:
+        'Generating structured product specifications from raw images was a slow, fully manual process for the catalog team.',
+      solution:
+        'Built a computer-vision-assisted pipeline that extracts product attributes from images and auto-drafts structured spec sheets for human review.',
+      tech: ['Python', 'PyTorch', 'FastAPI', 'AWS'],
+      outcome: '30\u201335% reduction in manual effort on spec generation.',
     },
     {
-      name: 'PyTorch',
-      description: 'AI Models',
-      icon: 'https://cdn.simpleicons.org/pytorch/EE4C2C',
+      id: 'resume-ai',
+      name: 'Resume AI',
+      featured: true,
+      problem:
+        'Job seekers were spending hours manually tailoring resumes for each application, often missing keywords that applicant tracking systems screen for.',
+      solution:
+        'Built an end-to-end resume analysis and generation tool: a React frontend for upload and editing, an Express.js backend handling parsing and LLM-driven suggestions, and PostgreSQL for storing user profiles, resume versions, and job-match history.',
+      tech: ['React', 'Express.js', 'PostgreSQL', 'LLM API', 'Node.js'],
+      outcome: 'End-to-end resume tailoring in minutes instead of hours, with structured, ATS-aware suggestions.',
     },
-  ] as ToolItem[],
+    {
+      id: 'db-backup-tool',
+      name: 'Automated Database Backup Tool',
+      featured: false,
+      problem:
+        'Manual database backups were inconsistent and error-prone, leaving production data exposed to avoidable loss during failures or migrations.',
+      solution:
+        'Built an end-to-end automated backup system with a React dashboard for scheduling, monitoring, and restoring backups, and an Express.js backend that runs scheduled PostgreSQL dumps, verifies integrity, and manages retention policies.',
+      tech: ['React', 'Express.js', 'PostgreSQL', 'Node.js', 'Cron'],
+      outcome: 'Reliable, scheduled backups with integrity verification, removing manual backup work entirely.',
+    },
+    {
+      id: 'seatherny',
+      name: 'Seatherny',
+      featured: false,
+      problem:
+        'Birdwatchers and field researchers needed a fast, offline-friendly way to identify avian species from photos in the field.',
+      solution:
+        'Built an Android app with an on-device TensorFlow model for species identification, deployed and monitored on GCP.',
+      tech: ['Android', 'TensorFlow', 'GCP'],
+      outcome: 'Shipped to production with 99% uptime.',
+    },
+  ],
+
+  /**
+   * TESTIMONIALS — real names, DRAFT quotes.
+   * These attribute specific claims to real people. Get each person's
+   * sign-off on their exact wording before publishing this site.
+   */
+  testimonials: [
+    {
+      id: 't1',
+      quote:
+        'Akashdeep built our RAG assistant end to end \u2014 Qwen2.5, vector search, the works \u2014 and it\u2019s held 99% uptime since launch. He owns problems past the point most engineers hand them off.',
+      name: 'Karan Sharma',
+      role: 'CEO',
+      company: 'Cosmic Owl',
+    },
+    {
+      id: 't2',
+      quote: 'Akashdeep worked on a sensitive project with us under NDA and handled it exactly how you\u2019d want \u2014 careful with scope, clear about tradeoffs, and reliable on delivery. I\u2019d bring him onto another confidential build without hesitation.', // awaiting Tom's role/company + a real or draft quote
+      name: 'Tom Pagram',
+      role: 'Team Lead and Project Manager',
+      company: '',
+    },
+    {
+      id: 't3',
+      quote:
+        'We asked for a way to cut manual spec work and got a computer vision pipeline that actually held up in production. Akashdeep thinks past the demo.',
+      name: 'Danial',
+      role: 'CTO',
+      company: 'Mr. Lister',
+    },
+    {
+      id: 't4',
+      quote:
+        'Seatherny needed to work in the field, offline, on a phone \u2014 not just in a lab. Akashdeep got the model running on-device and shipped it without drama.',
+      name: 'Alison',
+      role: 'Owner',
+      company: 'Seatherny',
+    },
+  ],
+
   contact: {
-    headingMain: "LET'S BUILD",
-    headingMuted: 'TOGETHER',
-    subtitle:
-      'Open to Backend Developer and Full-Stack Developer roles (Remote / Chandigarh).',
-    details: [
-      { label: 'Phone', value: '+91-7888929889', href: 'tel:+917888929889' },
-      {
-        label: 'Email',
-        value: 'akashdeep.work73@gmail.com',
-        href: 'mailto:akashdeep.work73@gmail.com',
-      },
-      {
-        label: 'LinkedIn',
-        value: 'linkedin.com/in/akashdeep73',
-        href: 'http://www.linkedin.com/in/akashdeep73',
-      },
-      { label: 'Languages', value: 'English, Hindi, Punjabi' },
-    ] as ProfileContact[],
+    heading: 'Let\u2019s build something that has to work',
+    subheading:
+      'Open to freelance and consulting engagements \u2014 AI/LLM integration, RAG systems, or full-stack builds that need someone who can own the whole stack.',
+    ctaLabel: 'Start a conversation',
+    availability: 'Currently accepting new projects for Q3 2026',
   },
 }
