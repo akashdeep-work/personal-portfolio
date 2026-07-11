@@ -28,7 +28,7 @@ export function Nav() {
     >
       <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-[18px] sm:px-8">
         <a href="#top" className="font-mono text-[13px] font-bold uppercase tracking-wide">
-          Akashdeep<span className="text-red">.</span>Dev
+          Akashdeep<span className="text-red">.</span>Pro
         </a>
 
         <ul className="hidden items-center gap-[26px] md:flex">
