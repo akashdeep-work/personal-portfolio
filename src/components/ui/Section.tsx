@@ -3,31 +3,43 @@ import type { ReactNode } from 'react'
 
 interface SectionProps {
   id: string
-  /** Eyebrow rendered like a code comment, e.g. "about" -> "// about" */
-  eyebrow: string
+  /** e.g. "01" -> renders "FIG. 01" */
+  figNumber: string
+  figLabel: string
   title: string
   children: ReactNode
-  className?: string
+  /** Omit the bottom rule for the last section before the footer */
+  noBorder?: boolean
 }
 
-export function Section({ id, eyebrow, title, children, className = '' }: SectionProps) {
+export function Section({ id, figNumber, figLabel, title, children, noBorder }: SectionProps) {
   return (
-    <section id={id} className={`scroll-mt-24 py-20 sm:py-28 ${className}`}>
-      <div className="mx-auto max-w-content px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
+    <section
+      id={id}
+      className={`scroll-mt-20 py-16 sm:py-[72px] ${noBorder ? '' : 'border-b-2 border-ink'}`}
+    >
+      <div className="mx-auto max-w-content px-6 sm:px-8">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="mb-10 sm:mb-14"
+          transition={{ duration: 0.5 }}
+          className="mb-4 inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted"
         >
-          <p className="font-mono text-sm text-signal">{`// ${eyebrow}`}</p>
-          {title && (
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-              {title}
-            </h2>
-          )}
-        </motion.div>
+          <span className="font-bold text-red">{`FIG. ${figNumber}`}</span>
+          {'— ' + figLabel}
+        </motion.p>
+        {title && (
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="mb-10 text-balance text-[clamp(30px,4.5vw,44px)] font-bold uppercase tracking-tight sm:mb-12"
+          >
+            {title}
+          </motion.h2>
+        )}
         {children}
       </div>
     </section>

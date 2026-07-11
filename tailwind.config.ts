@@ -5,47 +5,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Matte, near-black base — never pure #000 so text/edges stay soft.
-        bg: {
-          DEFAULT: '#0B0D0E',
-          elevated: '#14171A',
-          inset: '#0F1113',
-        },
-        border: {
-          DEFAULT: '#23272B',
-          strong: '#33383D',
+        // Paper-white base, near-black ink, single stamped red accent.
+        paper: {
+          DEFAULT: '#FAFAF8',
+          panel: '#FFFFFF',
         },
         ink: {
-          DEFAULT: '#ECEBE4', // warm off-white, not clinical pure white
-          muted: '#9BA0A6',
-          faint: '#5C6167',
+          DEFAULT: '#0A0A0A',
+          muted: '#5A5A5A',
+          faint: '#9A9A94',
         },
-        // Single accent: CRT-amber. Used sparingly for CTAs, links, highlights.
-        signal: {
-          DEFAULT: '#FFB020',
-          dim: '#8A5E15',
-          soft: 'rgba(255, 176, 32, 0.1)',
+        hairline: '#DCDBD3',
+        red: {
+          DEFAULT: '#E0301E',
+          soft: '#FDEAE7',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        grotesk: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['"Space Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       maxWidth: {
-        content: '1120px',
+        content: '1160px',
       },
       keyframes: {
-        blink: {
-          '0%, 49%': { opacity: '1' },
-          '50%, 100%': { opacity: '0' },
-        },
         fadeUp: {
-          from: { opacity: '0', transform: 'translateY(12px)' },
+          from: { opacity: '0', transform: 'translateY(16px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
       },
       animation: {
-        blink: 'blink 1s step-end infinite',
         fadeUp: 'fadeUp 0.6s ease-out forwards',
       },
     },

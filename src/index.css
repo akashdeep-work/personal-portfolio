@@ -3,49 +3,50 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-bg text-ink font-sans antialiased;
-    font-feature-settings: 'ss01' 1, 'cv01' 1;
+    @apply bg-paper text-ink font-grotesk antialiased;
   }
 
   ::selection {
-    background: rgba(255, 176, 32, 0.25);
-    color: #ECEBE4;
+    background: #E0301E;
+    color: #ffffff;
   }
 
-  /* Visible, deliberate focus ring — never suppressed */
   :focus-visible {
-    outline: 2px solid #FFB020;
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline: 3px solid #E0301E;
+    outline-offset: 2px;
   }
 
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B0D0E;
+    background: #FAFAF8;
   }
   ::-webkit-scrollbar-thumb {
-    background: #23272B;
+    background: #DCDBD3;
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #33383D;
+    background: #9A9A94;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .rule {
+    border-color: #0A0A0A;
+    border-width: 2px;
+  }
+  .hair {
+    border-color: #DCDBD3;
+    border-width: 1px;
   }
 }
 

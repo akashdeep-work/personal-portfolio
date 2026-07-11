@@ -7,12 +7,11 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export function Button({ children, variant = 'primary', className = '', ...rest }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-medium transition-all duration-200 font-sans'
+    'inline-flex items-center justify-center gap-2 border-2 border-ink px-6 py-[15px] font-mono text-[13px] font-bold uppercase tracking-wide transition-all duration-200'
 
   const variants = {
-    primary: 'bg-signal text-bg hover:bg-signal/90 active:bg-signal/80',
-    secondary:
-      'border border-border-strong text-ink hover:border-signal/60 hover:text-signal',
+    primary: 'bg-ink text-paper hover:bg-red hover:border-red',
+    secondary: 'bg-transparent text-ink hover:bg-ink hover:text-paper',
   }
 
   return (

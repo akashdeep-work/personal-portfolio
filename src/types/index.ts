@@ -6,7 +6,6 @@
 export interface SocialLink {
   label: string
   href: string
-  /** Short mono-style handle shown in UI, e.g. "@akashdeep73" */
   handle?: string
 }
 
@@ -58,6 +57,8 @@ export interface ProjectEntry {
   solution: string
   tech: string[]
   outcome: string
+  /** Short segment of the outcome to render in the accent color, e.g. "~35% faster" */
+  outcomeHighlight?: string
   links?: { label: string; href: string }[]
 }
 

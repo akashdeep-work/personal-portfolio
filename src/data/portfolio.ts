@@ -5,9 +5,7 @@ import type { PortfolioData } from '../types'
  *  SITE CONTENT — the only file you should need to edit
  * ────────────────────────────────────────────────────────────────
  *  Every string rendered on the site lives here. Components read
- *  from this object and contain no hardcoded copy. To update your
- *  name, roles, projects, or testimonials, edit this file only —
- *  no component changes required.
+ *  from this object and contain no hardcoded copy.
  * ────────────────────────────────────────────────────────────────
  */
 export const portfolio: PortfolioData = {
@@ -16,7 +14,7 @@ export const portfolio: PortfolioData = {
     title: 'Full-Stack Engineer — AI & LLM Systems',
     tagline: 'I build production-grade AI systems and full-stack products — not prototypes.',
     location: 'India',
-    remoteNote: 'Open to remote and Chandigarh-based work',
+    remoteNote: 'Remote & Chandigarh-based',
     email: 'akashdeep.work73@gmail.com',
     phone: '+91-7888929889',
     resumeUrl: '/resume.pdf', // replace with a real hosted resume file
@@ -29,7 +27,7 @@ export const portfolio: PortfolioData = {
   },
 
   about: {
-    heading: 'About',
+    heading: 'Who I Am',
     paragraphs: [
       'I\u2019m a full-stack engineer with 5 years building backend systems and product interfaces that stay reliable after the demo ends. Most of my recent work sits at the intersection of applied AI and traditional engineering: retrieval-augmented generation, computer vision pipelines, and the unglamorous infrastructure that keeps them running at 99% uptime.',
       'I care about the parts of AI engineering that don\u2019t show up in a pitch deck \u2014 latency budgets, vector index tuning, graceful fallbacks when a model call fails, and API contracts that don\u2019t break downstream teams. I\u2019ve led small teams, mentored junior engineers, and sat directly with clients to turn ambiguous requirements into shipped features.',
@@ -37,24 +35,18 @@ export const portfolio: PortfolioData = {
     ],
     highlights: [
       { label: 'Experience', value: '5 years' },
-      { label: 'Focus', value: 'AI/LLM systems, full-stack' },
-      { label: 'Based in', value: 'Punjab, India' },
-      { label: 'Available for', value: 'Freelance & consulting' },
+      { label: 'Focus', value: 'AI/LLM, Full-Stack' },
+      { label: 'Based In', value: 'Punjab, India' },
+      { label: 'Available For', value: 'Freelance & Consulting' },
     ],
   },
 
   skills: [
-    {
-      category: 'Languages',
-      items: ['TypeScript', 'JavaScript', 'Python', 'SQL'],
-    },
-    {
-      category: 'Frontend',
-      items: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
-    },
+    { category: 'Languages', items: ['TypeScript', 'JavaScript', 'Python', 'SQL'] },
+    { category: 'Frontend', items: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'] },
     {
       category: 'Backend',
-      items: ['Node.js', 'Express', 'FastAPI', 'GraphQL', 'REST', 'Microservices'],
+      items: ['Node.js', 'Express', 'Python', 'FastAPI', 'GraphQL', 'REST', 'Microservices'],
     },
     {
       category: 'Cloud & DevOps',
@@ -128,18 +120,20 @@ export const portfolio: PortfolioData = {
       solution:
         'Designed and built a retrieval-augmented generation assistant on Qwen2.5, backed by a vector database for semantic search over internal documentation, with caching and fallback handling for model latency spikes.',
       tech: ['Qwen2.5', 'LangChain', 'Vector DB', 'FastAPI', 'Redis'],
-      outcome: '~35% faster response times with 99% uptime in production.',
+      outcome: '~35% faster response times, 99% uptime',
+      outcomeHighlight: '~35% faster',
     },
     {
       id: 'product-listing-cv',
-      name: 'Product Listing Tool (Computer Vision)',
+      name: 'Product Listing Tool',
       featured: true,
       problem:
         'Generating structured product specifications from raw images was a slow, fully manual process for the catalog team.',
       solution:
         'Built a computer-vision-assisted pipeline that extracts product attributes from images and auto-drafts structured spec sheets for human review.',
       tech: ['Python', 'PyTorch', 'FastAPI', 'AWS'],
-      outcome: '30\u201335% reduction in manual effort on spec generation.',
+      outcome: '30\u201335% less manual effort on spec generation',
+      outcomeHighlight: '30\u201335% less',
     },
     {
       id: 'resume-ai',
@@ -149,19 +143,21 @@ export const portfolio: PortfolioData = {
         'Job seekers were spending hours manually tailoring resumes for each application, often missing keywords that applicant tracking systems screen for.',
       solution:
         'Built an end-to-end resume analysis and generation tool: a React frontend for upload and editing, an Express.js backend handling parsing and LLM-driven suggestions, and PostgreSQL for storing user profiles, resume versions, and job-match history.',
-      tech: ['React', 'Express.js', 'PostgreSQL', 'LLM API', 'Node.js'],
-      outcome: 'End-to-end resume tailoring in minutes instead of hours, with structured, ATS-aware suggestions.',
+      tech: ['React', 'Express.js', 'PostgreSQL', 'LLM API'],
+      outcome: 'Resume tailoring in minutes, ATS-aware',
+      outcomeHighlight: 'minutes',
     },
     {
       id: 'db-backup-tool',
-      name: 'Automated Database Backup Tool',
+      name: 'DB Backup Tool',
       featured: false,
       problem:
         'Manual database backups were inconsistent and error-prone, leaving production data exposed to avoidable loss during failures or migrations.',
       solution:
         'Built an end-to-end automated backup system with a React dashboard for scheduling, monitoring, and restoring backups, and an Express.js backend that runs scheduled PostgreSQL dumps, verifies integrity, and manages retention policies.',
-      tech: ['React', 'Express.js', 'PostgreSQL', 'Node.js', 'Cron'],
-      outcome: 'Reliable, scheduled backups with integrity verification, removing manual backup work entirely.',
+      tech: ['React', 'Express.js', 'PostgreSQL', 'Cron'],
+      outcome: 'Scheduled backups, zero manual work',
+      outcomeHighlight: 'zero',
     },
     {
       id: 'seatherny',
@@ -172,7 +168,8 @@ export const portfolio: PortfolioData = {
       solution:
         'Built an Android app with an on-device TensorFlow model for species identification, deployed and monitored on GCP.',
       tech: ['Android', 'TensorFlow', 'GCP'],
-      outcome: 'Shipped to production with 99% uptime.',
+      outcome: 'Shipped to production, 99% uptime',
+      outcomeHighlight: '99%',
     },
   ],
 
@@ -180,6 +177,7 @@ export const portfolio: PortfolioData = {
    * TESTIMONIALS — real names, DRAFT quotes.
    * These attribute specific claims to real people. Get each person's
    * sign-off on their exact wording before publishing this site.
+   * Tom Pagram's role/company are still pending — fill in before launch.
    */
   testimonials: [
     {
@@ -192,9 +190,10 @@ export const portfolio: PortfolioData = {
     },
     {
       id: 't2',
-      quote: 'Akashdeep worked on a sensitive project with us under NDA and handled it exactly how you\u2019d want \u2014 careful with scope, clear about tradeoffs, and reliable on delivery. I\u2019d bring him onto another confidential build without hesitation.', // awaiting Tom's role/company + a real or draft quote
+      quote:
+        'Akashdeep worked on a sensitive project with us under NDA and handled it exactly how you\u2019d want \u2014 careful with scope, clear about tradeoffs, and reliable on delivery.',
       name: 'Tom Pagram',
-      role: 'Team Lead and Project Manager',
+      role: 'Team Lead and Project Manager', // fill in before publishing
       company: '',
     },
     {
@@ -216,10 +215,10 @@ export const portfolio: PortfolioData = {
   ],
 
   contact: {
-    heading: 'Let\u2019s build something that has to work',
+    heading: 'Let\u2019s Build Something That Has To Work',
     subheading:
       'Open to freelance and consulting engagements \u2014 AI/LLM integration, RAG systems, or full-stack builds that need someone who can own the whole stack.',
-    ctaLabel: 'Start a conversation',
-    availability: 'Currently accepting new projects for Q3 2026',
+    ctaLabel: 'Start A Conversation',
+    availability: 'Currently Accepting New Projects \u2014 Q3 2026',
   },
 }

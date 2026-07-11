@@ -1,32 +1,32 @@
 import { motion } from 'framer-motion'
 import { portfolio } from '../data/portfolio'
 import { Section } from './ui/Section'
-import { Badge } from './ui/Badge'
+import { Tag } from './ui/Tag'
 
 export function Skills() {
   return (
-    <Section id="skills" eyebrow="skills" title="What I work with">
-      <div className="grid gap-6 sm:grid-cols-2">
-        {portfolio.skills.map((group, i) => (
-          <motion.div
+    <Section id="skills" figNumber="02" figLabel="Stack" title="What I Work With">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5 }}
+        className="border-t-2 border-ink"
+      >
+        {portfolio.skills.map((group) => (
+          <div
             key={group.category}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="rounded-lg border border-border bg-bg-elevated p-6"
+            className="grid grid-cols-1 gap-3 border-b border-hairline py-5 sm:grid-cols-[200px_1fr] sm:items-start sm:gap-6"
           >
-            <h3 className="font-mono text-xs uppercase tracking-wide text-signal">
-              {group.category}
-            </h3>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <p className="font-mono text-xs font-bold uppercase tracking-wide">{group.category}</p>
+            <div className="flex flex-wrap gap-2">
               {group.items.map((item) => (
-                <Badge key={item}>{item}</Badge>
+                <Tag key={item}>{item}</Tag>
               ))}
             </div>
-          </motion.div>
+          </div>
         ))}
-      </div>
+      </motion.div>
     </Section>
   )
 }

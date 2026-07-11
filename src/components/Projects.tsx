@@ -1,8 +1,21 @@
 import { motion } from 'framer-motion'
 import { portfolio } from '../data/portfolio'
 import { Section } from './ui/Section'
-import { Card } from './ui/Card'
-import { Badge } from './ui/Badge'
+import { Tag } from './ui/Tag'
+import type { ProjectEntry } from '../types'
+
+function renderOutcome(project: ProjectEntry) {
+  if (!project.outcomeHighlight) return project.outcome
+
+  const parts = project.outcome.split(project.outcomeHighlight)
+  return (
+    <>
+      {parts[0]}
+      <span className="text-red">{project.outcomeHighlight}</span>
+      {parts[1]}
+    </>
+  )
+}
 
 export function Projects() {
   const projects = [...portfolio.projects].sort(
@@ -10,52 +23,51 @@ export function Projects() {
   )
 
   return (
-    <Section id="projects" eyebrow="projects" title="Selected work">
-      <div className="grid gap-6 lg:grid-cols-2">
-        {projects.map((project, i) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: i * 0.06 }}
-          >
-            <Card className="flex h-full flex-col">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-lg font-semibold text-ink">{project.name}</h3>
-                {project.featured && <Badge tone="signal">featured</Badge>}
-              </div>
-
-              <div className="mt-4 space-y-3 text-sm leading-relaxed">
-                <p>
-                  <span className="font-mono text-xs uppercase tracking-wide text-ink-faint">
-                    Problem —{' '}
-                  </span>
-                  <span className="text-ink-muted">{project.problem}</span>
-                </p>
-                <p>
-                  <span className="font-mono text-xs uppercase tracking-wide text-ink-faint">
-                    Built —{' '}
-                  </span>
-                  <span className="text-ink-muted">{project.solution}</span>
-                </p>
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
+    <Section id="projects" figNumber="04" figLabel="Selected Work" title="Projects">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5 }}
+        className="grid grid-cols-1 border-l-2 border-t-2 border-ink sm:grid-cols-2"
+      >
+        {projects.map((project) => (
+          <div key={project.id} className="border-b-2 border-r-2 border-ink">
+            <div className="flex items-center justify-between bg-ink px-[22px] py-3.5">
+              <span className="text-[15px] font-bold uppercase tracking-wide text-paper">
+                {project.name}
+              </span>
+              {project.featured && (
+                <span className="bg-paper px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wide text-red">
+                  Featured
+                </span>
+              )}
+            </div>
+            <div className="p-[22px]">
+              <p className="mb-3 text-sm leading-relaxed text-ink-muted">
+                <span className="mb-0.5 block font-mono text-[10px] font-bold uppercase tracking-wide text-ink">
+                  Problem
+                </span>
+                {project.problem}
+              </p>
+              <p className="mb-4 text-sm leading-relaxed text-ink-muted">
+                <span className="mb-0.5 block font-mono text-[10px] font-bold uppercase tracking-wide text-ink">
+                  Built
+                </span>
+                {project.solution}
+              </p>
+              <div className="mb-4 flex flex-wrap gap-1.5">
                 {project.tech.map((t) => (
-                  <Badge key={t}>{t}</Badge>
+                  <Tag key={t}>{t}</Tag>
                 ))}
               </div>
-
-              <div className="mt-5 flex-1" />
-
-              <p className="mt-4 border-t border-border pt-4 font-mono text-sm text-signal">
-                → {project.outcome}
+              <p className="border-t border-hairline pt-3.5 font-mono text-[13px] font-bold text-ink">
+                → {renderOutcome(project)}
               </p>
-            </Card>
-          </motion.div>
+            </div>
+          </div>
         ))}
-      </div>
+      </motion.div>
     </Section>
   )
 }
